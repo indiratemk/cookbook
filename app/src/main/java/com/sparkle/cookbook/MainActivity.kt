@@ -94,7 +94,10 @@ fun Recipes(viewModel: RecipeViewModel) {
                     Column(
                         modifier = Modifier.width(120.dp)
                     ) {
-                        val image = loadImage(url = recipe.imageUrl)
+                        val image = loadImage(
+                            url = recipe.imageUrl,
+                            defaultImage = R.drawable.empty_plate
+                        )
                         image.value?.let { bitmap ->
                             Card(
                                 shape = RoundedCornerShape(16.dp),
