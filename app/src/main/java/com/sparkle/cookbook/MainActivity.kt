@@ -7,12 +7,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
@@ -21,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.coroutineScope
 import com.sparkle.cookbook.ui.theme.CookBookTheme
@@ -45,7 +48,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             CookBookTheme {
                 LazyColumn(content = {
-                    item { Title(getString(R.string.recipes_list_title)) }
+                    item { Title(title = getString(R.string.recipes_list_title)) }
+                    item { Subtitle(subtitle = getString(R.string.recipes_popular_title)) }
                     item { Recipes(viewModel = viewModel) }
                 })
             }
@@ -57,7 +61,24 @@ class MainActivity : ComponentActivity() {
 fun Title(title: String) {
     Text(
         text = title,
-        style = Typography().h4
+        style = Typography().h4,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+fun Subtitle(subtitle: String) {
+    Text(
+        text = subtitle,
+        style = Typography().h6,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(
+            start = 16.dp,
+            top = 8.dp,
+            end = 16.dp,
+            bottom = 16.dp
+        )
     )
 }
 
@@ -67,7 +88,7 @@ fun Recipes(viewModel: RecipeViewModel) {
 
     LazyRow(
         content = {
-            item { Spacer(Modifier.size(8.dp)) }
+            item { Spacer(Modifier.size(16.dp)) }
             for (recipe in recipes) {
                 item {
                     Column(
@@ -75,21 +96,30 @@ fun Recipes(viewModel: RecipeViewModel) {
                     ) {
                         val image = loadImage(url = recipe.imageUrl)
                         image.value?.let { bitmap ->
-                            Image(
-                                bitmap = bitmap.asImageBitmap(),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .heightIn(min = 120.dp, max = 120.dp)
-                                    .widthIn(min = 120.dp, max = 120.dp)
-                                    .clip(RoundedCornerShape(8.dp)),
-                                contentScale = ContentScale.Crop
-                            )
+                            Card(
+                                shape = RoundedCornerShape(16.dp),
+                                elevation = 4.dp
+                            ) {
+                                Image(
+                                    bitmap = bitmap.asImageBitmap(),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .heightIn(min = 120.dp, max = 120.dp)
+                                        .widthIn(min = 120.dp, max = 120.dp)
+                                        .clip(RoundedCornerShape(16.dp)),
+                                    contentScale = ContentScale.Crop
+                                )
+                            }
                         }
-                        Text(text = recipe.title)
-                        Text(text = recipe.description)
+                        Text(
+                            text = recipe.title,
+                            style = Typography().body2,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
                     }
 
-                    Spacer(Modifier.size(8.dp))
+                    Spacer(Modifier.size(16.dp))
                 }
             }
         }

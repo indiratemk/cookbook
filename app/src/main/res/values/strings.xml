@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">CookBook</string>
-    <string name="recipes_list_title">Your recipes</string>
+    <string name="recipes_list_title">Build a meal plan</string>
     <string name="recipes_popular_title">Most Popular</string>
 </resources>
