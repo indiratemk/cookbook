@@ -1,4 +1,4 @@
-package com.sparkle.cookbook
+package com.sparkle.cookbook.recipes.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

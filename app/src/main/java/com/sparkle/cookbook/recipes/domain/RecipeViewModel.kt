@@ -1,8 +1,9 @@
-package com.sparkle.cookbook
+package com.sparkle.cookbook.recipes.domain
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.sparkle.cookbook.recipes.data.Recipe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch

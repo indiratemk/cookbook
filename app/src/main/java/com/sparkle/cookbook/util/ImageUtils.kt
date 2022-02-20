@@ -1,4 +1,4 @@
-package com.sparkle.cookbook
+package com.sparkle.cookbook.util
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
