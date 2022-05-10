@@ -25,20 +25,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.sparkle.cookbook.CookBookApplication
+import com.sparkle.cookbook.ActionClearableReference
 import com.sparkle.cookbook.R
 import com.sparkle.cookbook.recipes.data.Recipe
+import com.sparkle.cookbook.recipes.tea.IRecipesFeatureProvider
 import com.sparkle.cookbook.recipes.tea.RecipesFeature
-import com.sparkle.cookbook.recipes.tea.provideFeature
 import com.sparkle.cookbook.teacore.Application
+import com.sparkle.cookbook.teacore.Feature
 import com.sparkle.cookbook.ui.theme.CookBookTheme
 import com.sparkle.cookbook.util.loadImage
 
 class MainActivity : ComponentActivity() {
 
-    private val feature by lazy {
-        provideFeature((application as CookBookApplication).database.recipeDao())
-    }
+    private val featureProvider: ActionClearableReference<IRecipesFeatureProvider> =
+        IRecipesFeatureProvider.ref
+    private val feature: Feature<RecipesFeature.Msg, RecipesFeature.State, RecipesFeature.Eff> =
+        featureProvider.get().feature
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
