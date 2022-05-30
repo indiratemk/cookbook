@@ -7,7 +7,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
@@ -15,15 +14,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Text
-import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.sparkle.cookbook.ActionClearableReference
 import com.sparkle.cookbook.R
@@ -32,7 +28,10 @@ import com.sparkle.cookbook.recipes.tea.IRecipesFeatureProvider
 import com.sparkle.cookbook.recipes.tea.RecipesFeature
 import com.sparkle.cookbook.teacore.Application
 import com.sparkle.cookbook.teacore.Feature
+import com.sparkle.cookbook.ui.theme.Body
 import com.sparkle.cookbook.ui.theme.CookBookTheme
+import com.sparkle.cookbook.ui.theme.Subtitle
+import com.sparkle.cookbook.ui.theme.Title
 import com.sparkle.cookbook.util.loadImage
 
 class MainActivity : ComponentActivity() {
@@ -55,35 +54,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun RecipesScreen(state: RecipesFeature.State) {
     LazyColumn(content = {
-        item { Title(title = LocalContext.current.getString(R.string.recipes_list_title)) }
-        item { Subtitle(subtitle = LocalContext.current.getString(R.string.recipes_popular_title)) }
+        item { Title(text = LocalContext.current.getString(R.string.recipes_list_title)) }
+        item { Subtitle(text = LocalContext.current.getString(R.string.recipes_popular_title)) }
         item { RecipeItems(recipes = state.recipes) }
     })
-}
-
-@Composable
-fun Title(title: String) {
-    Text(
-        text = title,
-        style = Typography().h4,
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(16.dp)
-    )
-}
-
-@Composable
-fun Subtitle(subtitle: String) {
-    Text(
-        text = subtitle,
-        style = Typography().h6,
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(
-            start = 16.dp,
-            top = 8.dp,
-            end = 16.dp,
-            bottom = 16.dp
-        )
-    )
 }
 
 @Composable
@@ -104,19 +78,9 @@ fun RecipeItem(recipe: Recipe) {
         modifier = Modifier.width(120.dp)
     ) {
         RecipeImage(imageUrl = recipe.imageUrl)
-        RecipeTitle(title = recipe.title)
+        Body(text = recipe.title)
     }
     Spacer(Modifier.size(16.dp))
-}
-
-@Composable
-fun RecipeTitle(title: String) {
-    Text(
-        text = title,
-        style = Typography().body2,
-        fontWeight = FontWeight.SemiBold,
-        modifier = Modifier.padding(top = 8.dp)
-    )
 }
 
 @Composable
