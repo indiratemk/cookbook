@@ -7,4 +7,5 @@
     <string name="add_recipe_name_hint">Enter recipe\'s title</string>
     <string name="add_recipe_description">Description</string>
     <string name="add_recipe_description_hint">Enter recipe\'s description</string>
+    <string name="add_recipe_create_button">Create recipe</string>
 </resources>
