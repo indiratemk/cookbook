@@ -54,8 +54,21 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun RecipesScreen(state: RecipesFeature.State) {
     LazyColumn(content = {
-        item { Title(text = LocalContext.current.getString(R.string.recipes_list_title)) }
-        item { Subtitle(text = LocalContext.current.getString(R.string.recipes_popular_title)) }
+        item {
+            Title(
+                text = LocalContext.current.getString(R.string.recipes_list_title),
+                indents = 16.dp
+            )
+        }
+        item {
+            Subtitle(
+                text = LocalContext.current.getString(R.string.recipes_popular_title),
+                startIndent = 16.dp,
+                topIndent = 8.dp,
+                endIndent = 16.dp,
+                bottomIndent = 16.dp,
+            )
+        }
         item { RecipeItems(recipes = state.recipes) }
     })
 }

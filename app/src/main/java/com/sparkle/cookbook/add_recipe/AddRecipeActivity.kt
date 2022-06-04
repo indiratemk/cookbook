@@ -3,10 +3,16 @@ package com.sparkle.cookbook.add_recipe
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -31,10 +37,22 @@ class AddRecipeActivity : ComponentActivity() {
 
 @Composable
 fun AddRecipeScreen() {
-    LazyColumn(content = {
-        item { Title(text = LocalContext.current.getString(R.string.add_recipe_title)) }
-        item { Subtitle(text = LocalContext.current.getString(R.string.add_recipe_name)) }
-        item {
+    Column(
+        modifier = Modifier.verticalScroll(rememberScrollState())
+            .fillMaxSize(),
+        content = {
+            Title(
+                text = LocalContext.current.getString(R.string.add_recipe_title),
+                indents = 16.dp
+            )
+            Subtitle(
+                text = LocalContext.current.getString(R.string.add_recipe_name),
+                startIndent = 16.dp,
+                topIndent = 8.dp,
+                endIndent = 16.dp,
+                bottomIndent = 16.dp,
+            )
+
             val titleInput = remember { mutableStateOf(TextFieldValue()) }
             SingleLineInput(
                 input = titleInput,
@@ -43,9 +61,14 @@ fun AddRecipeScreen() {
                 bottomSpace = 16.dp,
                 endSpace = 16.dp
             )
-        }
-        item { Subtitle(text = LocalContext.current.getString(R.string.add_recipe_description)) }
-        item {
+            Subtitle(
+                text = LocalContext.current.getString(R.string.add_recipe_description),
+                startIndent = 16.dp,
+                topIndent = 8.dp,
+                endIndent = 16.dp,
+                bottomIndent = 16.dp,
+            )
+
             val descriptionInput = remember { mutableStateOf(TextFieldValue()) }
             MultiLineInput(
                 input = descriptionInput,
@@ -54,14 +77,18 @@ fun AddRecipeScreen() {
                 bottomSpace = 16.dp,
                 endSpace = 16.dp
             )
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.BottomCenter,
+                content = {
+                    DefaultButton(
+                        title = LocalContext.current.getString(R.string.add_recipe_create_button),
+                        startSpace = 16.dp,
+                        endSpace = 16.dp,
+                        topSpace = 8.dp
+                    ) {}
+                }
+            )
         }
-        item {
-            DefaultButton(
-                title = LocalContext.current.getString(R.string.add_recipe_create_button),
-                startSpace = 16.dp,
-                endSpace = 16.dp,
-                topSpace = 8.dp
-            ) {}
-        }
-    })
+    )
 }

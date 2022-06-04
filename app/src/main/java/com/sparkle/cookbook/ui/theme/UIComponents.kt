@@ -18,27 +18,37 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+// TEXTS
 @Composable
-fun Title(text: String) {
+fun Title(
+    text: String,
+    indents: Dp = 0.dp
+) {
     Text(
         text = text,
         style = Typography().h4,
         fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(indents)
     )
 }
 
 @Composable
-fun Subtitle(text: String) {
+fun Subtitle(
+    text: String,
+    startIndent: Dp = 0.dp,
+    endIndent: Dp = 0.dp,
+    topIndent: Dp = 0.dp,
+    bottomIndent: Dp = 0.dp,
+) {
     Text(
         text = text,
         style = Typography().h6,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(
-            start = 16.dp,
-            top = 8.dp,
-            end = 16.dp,
-            bottom = 16.dp
+            start = startIndent,
+            top = topIndent,
+            end = endIndent,
+            bottom = bottomIndent
         )
     )
 }
@@ -53,6 +63,7 @@ fun Body(text: String) {
     )
 }
 
+// TEXT FIELDS
 @Composable
 fun SingleLineInput(
     input: MutableState<TextFieldValue>,
@@ -122,6 +133,7 @@ fun MultiLineInput(
     )
 }
 
+// BUTTONS
 @Composable
 fun DefaultButton(
     title: String,
