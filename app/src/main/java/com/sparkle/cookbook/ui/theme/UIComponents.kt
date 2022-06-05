@@ -68,10 +68,7 @@ fun Body(text: String) {
 fun SingleLineInput(
     input: MutableState<TextFieldValue>,
     hint: String,
-    topSpace: Dp = 0.dp,
-    bottomSpace: Dp = 0.dp,
-    startSpace: Dp = 0.dp,
-    endSpace: Dp = 0.dp,
+    modifier: Modifier
 ) {
     TextField(
         value = input.value,
@@ -81,13 +78,7 @@ fun SingleLineInput(
                 text = hint
             )
         },
-        modifier = Modifier
-            .padding(
-                start = startSpace,
-                end = endSpace,
-                top = topSpace,
-                bottom = bottomSpace
-            ).fillMaxWidth(),
+        modifier = modifier,
         colors = TextFieldDefaults.textFieldColors(
             cursorColor = Green,
             focusedIndicatorColor = Color.Transparent,
@@ -102,10 +93,7 @@ fun SingleLineInput(
 fun MultiLineInput(
     input: MutableState<TextFieldValue>,
     hint: String,
-    topSpace: Dp = 0.dp,
-    bottomSpace: Dp = 0.dp,
-    startSpace: Dp = 0.dp,
-    endSpace: Dp = 0.dp,
+    modifier: Modifier
 ) {
     TextField(
         value = input.value,
@@ -115,14 +103,7 @@ fun MultiLineInput(
                 text = hint
             )
         },
-        modifier = Modifier
-            .padding(
-                start = startSpace,
-                end = endSpace,
-                top = topSpace,
-                bottom = bottomSpace
-            ).fillMaxWidth()
-            .height(120.dp),
+        modifier = modifier,
         colors = TextFieldDefaults.textFieldColors(
             cursorColor = Green,
             focusedIndicatorColor = Color.Transparent,
