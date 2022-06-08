@@ -1,9 +1,5 @@
-@file:OptIn(ExperimentalFoundationApi::class)
 package com.sparkle.cookbook.addrecipe
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +20,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.sparkle.cookbook.R
-import com.sparkle.cookbook.ui.theme.CookBookTheme
 import com.sparkle.cookbook.ui.theme.DefaultButton
 import com.sparkle.cookbook.ui.theme.MultiLineInput
 import com.sparkle.cookbook.ui.theme.SingleLineInput
@@ -32,17 +27,6 @@ import com.sparkle.cookbook.ui.theme.Subtitle
 import com.sparkle.cookbook.ui.theme.Title
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-
-class AddRecipeActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            CookBookTheme {
-                AddRecipeScreen()
-            }
-        }
-    }
-}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
