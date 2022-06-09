@@ -1,15 +1,15 @@
 [versions]
 activity-compose = "1.3.1"
-compose = "1.1.0"
+compose = "1.2.0-beta03"
 corektx = "1.6.0"
 expresso = "3.4.0"
 gradle = "7.0.2"
-kotlin = "1.6.10"
+kotlin = "1.6.21"
 detekt = "1.18.1"
 room = "2.4.1"
 glide = "4.13.0"
-rc-compose = "1.1.0-rc02"
 navigation = "2.4.2"
+accompanist = "0.24.10-beta"
 
 [libraries]
 activity-compose = "androidx.activity:activity-compose:1.3.1"
@@ -19,8 +19,8 @@ compose-material = { module = "androidx.compose.material:material", version.ref 
 compose-ui-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-ui-test-junit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "rc-compose" }
-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "rc-compose" }
+compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "corektx" }
 detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
@@ -36,3 +36,4 @@ room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 glide-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+accompanist = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }

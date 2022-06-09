@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -80,7 +81,7 @@ fun SingleLineInput(
         },
         modifier = modifier,
         colors = TextFieldDefaults.textFieldColors(
-            cursorColor = Green,
+            cursorColor = MaterialTheme.colors.secondary,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
@@ -105,7 +106,7 @@ fun MultiLineInput(
         },
         modifier = modifier,
         colors = TextFieldDefaults.textFieldColors(
-            cursorColor = Green,
+            cursorColor = MaterialTheme.colors.secondary,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
@@ -135,8 +136,8 @@ fun DefaultButton(
             ).fillMaxWidth()
             .height(48.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Green,
-            contentColor = Color.White
+            backgroundColor = MaterialTheme.colors.secondary,
+            contentColor = MaterialTheme.colors.primary
         ),
         shape = Shapes.small
     ) {
