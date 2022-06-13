@@ -15,7 +15,7 @@ fun CookBookNavGraph() {
             RecipesScreen(openAddRecipe = { navController.navigate(Routes.ADD_RECIPE) })
         }
         composable(Routes.ADD_RECIPE) {
-            AddRecipeScreen()
+            AddRecipeScreen(goBack = { navController.navigateUp() })
         }
     }
 }

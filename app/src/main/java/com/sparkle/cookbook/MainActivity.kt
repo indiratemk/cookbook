@@ -1,9 +1,8 @@
-package com.sparkle.cookbook.recipes
+package com.sparkle.cookbook
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.sparkle.cookbook.CookBookNavGraph
 import com.sparkle.cookbook.ui.theme.CookBookTheme
 
 class MainActivity : ComponentActivity() {

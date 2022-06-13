@@ -29,7 +29,12 @@ fun Title(
         text = text,
         style = Typography().h4,
         fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(indents)
+        modifier = Modifier.padding(
+            start = indents,
+            end = indents,
+            bottom = indents
+        ),
+        color = MaterialTheme.colors.onPrimary
     )
 }
 
@@ -40,6 +45,7 @@ fun Subtitle(
     endIndent: Dp = 0.dp,
     topIndent: Dp = 0.dp,
     bottomIndent: Dp = 0.dp,
+    color: Color = MaterialTheme.colors.onPrimary
 ) {
     Text(
         text = text,
@@ -50,17 +56,45 @@ fun Subtitle(
             top = topIndent,
             end = endIndent,
             bottom = bottomIndent
-        )
+        ),
+        color = color
     )
 }
 
 @Composable
-fun Body(text: String) {
+fun SubtitleThin(
+    text: String,
+    startIndent: Dp = 0.dp,
+    endIndent: Dp = 0.dp,
+    topIndent: Dp = 0.dp,
+    bottomIndent: Dp = 0.dp,
+    color: Color = MaterialTheme.colors.onPrimary
+) {
+    Text(
+        text = text,
+        style = Typography().subtitle1,
+        fontWeight = FontWeight.Normal,
+        modifier = Modifier.padding(
+            start = startIndent,
+            top = topIndent,
+            end = endIndent,
+            bottom = bottomIndent
+        ),
+        color = color
+    )
+}
+
+@Composable
+fun Body(
+    text: String,
+    color: Color = MaterialTheme.colors.onPrimary
+) {
     Text(
         text = text,
         style = Typography().body2,
         fontWeight = FontWeight.SemiBold,
-        modifier = Modifier.padding(top = 8.dp)
+        modifier = Modifier.padding(top = 8.dp),
+        color = color
     )
 }
 

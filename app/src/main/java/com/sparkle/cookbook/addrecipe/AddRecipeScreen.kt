@@ -10,6 +10,9 @@ import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,42 +27,54 @@ import com.sparkle.cookbook.ui.theme.DefaultButton
 import com.sparkle.cookbook.ui.theme.MultiLineInput
 import com.sparkle.cookbook.ui.theme.SingleLineInput
 import com.sparkle.cookbook.ui.theme.Subtitle
+import com.sparkle.cookbook.ui.theme.SubtitleThin
 import com.sparkle.cookbook.ui.theme.Title
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AddRecipeScreen() {
-    val bringIntoViewRequester = remember { BringIntoViewRequester() }
-    val coroutineScope = rememberCoroutineScope()
+fun AddRecipeScreen(
+    goBack: () -> Unit
+) {
+    Scaffold {
+        val bringIntoViewRequester = remember { BringIntoViewRequester() }
+        val coroutineScope = rememberCoroutineScope()
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxSize(),
-        content = {
-            Title(
-                text = LocalContext.current.getString(R.string.add_recipe_title),
-                indents = 16.dp
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .bringIntoViewRequester(bringIntoViewRequester)
-            ) {
-                RecipeTitleField(bringIntoViewRequester, coroutineScope)
-                RecipeDescriptionField(bringIntoViewRequester, coroutineScope)
-                DefaultButton(
-                    title = LocalContext.current.getString(R.string.add_recipe_create_button),
-                    startSpace = 16.dp,
-                    endSpace = 16.dp,
-                    topSpace = 8.dp,
-                    bottomSpace = 16.dp
-                ) {}
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .fillMaxSize(),
+            content = {
+                TextButton(onClick = goBack) {
+                    SubtitleThin(
+                        text = "Cancel",
+                        color = MaterialTheme.colors.secondary,
+                        startIndent = 8.dp
+                    )
+                }
+                Title(
+                    text = LocalContext.current.getString(R.string.add_recipe_title),
+                    indents = 16.dp
+                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .bringIntoViewRequester(bringIntoViewRequester)
+                ) {
+                    RecipeTitleField(bringIntoViewRequester, coroutineScope)
+                    RecipeDescriptionField(bringIntoViewRequester, coroutineScope)
+                    DefaultButton(
+                        title = LocalContext.current.getString(R.string.add_recipe_create_button),
+                        startSpace = 16.dp,
+                        endSpace = 16.dp,
+                        topSpace = 8.dp,
+                        bottomSpace = 16.dp
+                    ) {}
+                }
             }
-        }
-    )
+        )
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -80,7 +95,8 @@ fun RecipeTitleField(
     SingleLineInput(
         input = titleInput,
         hint = LocalContext.current.getString(R.string.add_recipe_name_hint),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(
                 start = 16.dp,
                 bottom = 16.dp,

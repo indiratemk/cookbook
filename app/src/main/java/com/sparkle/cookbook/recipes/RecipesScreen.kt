@@ -11,6 +11,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -27,7 +34,6 @@ import com.sparkle.cookbook.recipes.tea.RecipesFeature
 import com.sparkle.cookbook.teacore.Feature
 import com.sparkle.cookbook.teacore.asComposeState
 import com.sparkle.cookbook.ui.theme.Body
-import com.sparkle.cookbook.ui.theme.DefaultButton
 import com.sparkle.cookbook.ui.theme.Subtitle
 import com.sparkle.cookbook.ui.theme.Title
 import com.sparkle.cookbook.util.loadImage
@@ -36,36 +42,47 @@ import com.sparkle.cookbook.util.loadImage
 fun RecipesScreen(
     openAddRecipe: () -> Unit
 ) {
-    val featureProvider: ActionClearableReference<IRecipesFeatureProvider> =
-        IRecipesFeatureProvider.ref
-
-    val feature: Feature<RecipesFeature.Msg, RecipesFeature.State, RecipesFeature.Eff> =
-        featureProvider.get().feature
-
-    val state by feature.asComposeState()
-
-    LazyColumn(content = {
-        item {
-            Title(
-                text = LocalContext.current.getString(R.string.recipes_list_title),
-                indents = 16.dp
-            )
+    Scaffold(
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = openAddRecipe
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.primary
+                )
+            }
         }
-        item {
-            Subtitle(
-                text = LocalContext.current.getString(R.string.recipes_popular_title),
-                startIndent = 16.dp,
-                topIndent = 8.dp,
-                endIndent = 16.dp,
-                bottomIndent = 16.dp,
-            )
-        }
-        item { RecipeItems(recipes = state.recipes) }
-        item { DefaultButton(
-            title = "Add Recipe",
-            onClick = openAddRecipe,
-        ) }
-    })
+    ) {
+        val featureProvider: ActionClearableReference<IRecipesFeatureProvider> =
+            IRecipesFeatureProvider.ref
+
+        val feature: Feature<RecipesFeature.Msg, RecipesFeature.State, RecipesFeature.Eff> =
+            featureProvider.get().feature
+
+        val state by feature.asComposeState()
+
+        LazyColumn(content = {
+            item {
+                Title(
+                    text = LocalContext.current.getString(R.string.recipes_list_title),
+                    indents = 16.dp
+                )
+            }
+            item {
+                Subtitle(
+                    text = LocalContext.current.getString(R.string.recipes_popular_title),
+                    startIndent = 16.dp,
+                    topIndent = 8.dp,
+                    endIndent = 16.dp,
+                    bottomIndent = 16.dp,
+                )
+            }
+            item { RecipeItems(recipes = state.recipes) }
+        })
+    }
 }
 
 @Composable
