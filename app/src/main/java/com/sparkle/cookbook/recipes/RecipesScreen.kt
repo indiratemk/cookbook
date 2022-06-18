@@ -68,7 +68,8 @@ fun RecipesScreen(
             item {
                 Title(
                     text = LocalContext.current.getString(R.string.recipes_list_title),
-                    indents = 16.dp
+                    indents = 16.dp,
+                    topIndent = 16.dp
                 )
             }
             item {

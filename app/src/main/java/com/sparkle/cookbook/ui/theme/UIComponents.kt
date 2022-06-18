@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun Title(
     text: String,
-    indents: Dp = 0.dp
+    indents: Dp = 0.dp,
+    topIndent: Dp = 0.dp
 ) {
     Text(
         text = text,
@@ -32,7 +33,8 @@ fun Title(
         modifier = Modifier.padding(
             start = indents,
             end = indents,
-            bottom = indents
+            bottom = indents,
+            top = if (topIndent == 0.dp) indents else topIndent
         ),
         color = MaterialTheme.colors.onPrimary
     )
