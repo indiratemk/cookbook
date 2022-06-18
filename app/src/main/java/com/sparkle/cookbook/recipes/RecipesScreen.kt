@@ -1,5 +1,6 @@
 package com.sparkle.cookbook.recipes
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -38,6 +39,7 @@ import com.sparkle.cookbook.ui.theme.Subtitle
 import com.sparkle.cookbook.ui.theme.Title
 import com.sparkle.cookbook.util.loadImage
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun RecipesScreen(
     openAddRecipe: () -> Unit
@@ -127,7 +129,7 @@ fun RecipeImage(imageUrl: String) {
                     .heightIn(min = 120.dp, max = 120.dp)
                     .widthIn(min = 120.dp, max = 120.dp)
                     .clip(RoundedCornerShape(16.dp)),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.FillBounds
             )
         }
     }

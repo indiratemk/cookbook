@@ -11,7 +11,6 @@ import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -103,13 +102,14 @@ fun Body(
 // TEXT FIELDS
 @Composable
 fun SingleLineInput(
-    input: MutableState<TextFieldValue>,
+    inputValue: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
     hint: String,
     modifier: Modifier
 ) {
     TextField(
-        value = input.value,
-        onValueChange = { input.value = it },
+        value = inputValue,
+        onValueChange = onValueChange,
         placeholder = {
             Text(
                 text = hint
@@ -128,13 +128,14 @@ fun SingleLineInput(
 
 @Composable
 fun MultiLineInput(
-    input: MutableState<TextFieldValue>,
+    inputValue: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
     hint: String,
     modifier: Modifier
 ) {
     TextField(
-        value = input.value,
-        onValueChange = { input.value = it },
+        value = inputValue,
+        onValueChange = onValueChange,
         placeholder = {
             Text(
                 text = hint

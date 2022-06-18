@@ -1,5 +1,6 @@
 package com.sparkle.cookbook.addrecipe
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -22,7 +24,12 @@ import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.sparkle.cookbook.ActionClearableReference
 import com.sparkle.cookbook.R
+import com.sparkle.cookbook.addrecipe.tea.AddRecipeFeature
+import com.sparkle.cookbook.addrecipe.tea.IAddRecipeFeatureProvider
+import com.sparkle.cookbook.teacore.Feature
+import com.sparkle.cookbook.teacore.asComposeState
 import com.sparkle.cookbook.ui.theme.DefaultButton
 import com.sparkle.cookbook.ui.theme.MultiLineInput
 import com.sparkle.cookbook.ui.theme.SingleLineInput
@@ -32,6 +39,7 @@ import com.sparkle.cookbook.ui.theme.Title
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AddRecipeScreen(
@@ -40,6 +48,14 @@ fun AddRecipeScreen(
     Scaffold {
         val bringIntoViewRequester = remember { BringIntoViewRequester() }
         val coroutineScope = rememberCoroutineScope()
+
+        val featureProvider: ActionClearableReference<IAddRecipeFeatureProvider> =
+            IAddRecipeFeatureProvider.ref
+
+        val feature: Feature<AddRecipeFeature.Msg, AddRecipeFeature.State, AddRecipeFeature.Eff> =
+            featureProvider.get().feature
+
+        val state by feature.asComposeState()
 
         Column(
             modifier = Modifier
@@ -62,15 +78,28 @@ fun AddRecipeScreen(
                         .fillMaxWidth()
                         .bringIntoViewRequester(bringIntoViewRequester)
                 ) {
-                    RecipeTitleField(bringIntoViewRequester, coroutineScope)
-                    RecipeDescriptionField(bringIntoViewRequester, coroutineScope)
+                    RecipeTitleField(
+                        bringIntoViewRequester = bringIntoViewRequester,
+                        coroutineScope = coroutineScope,
+                        onInputChange =
+                        { feature.accept(AddRecipeFeature.Msg.OnTitleChanged(it)) })
+
+                    RecipeDescriptionField(
+                        bringIntoViewRequester = bringIntoViewRequester,
+                        coroutineScope = coroutineScope,
+                        onInputChange =
+                        { feature.accept(AddRecipeFeature.Msg.OnDescriptionChanged(it)) }
+                    )
+
                     DefaultButton(
                         title = LocalContext.current.getString(R.string.add_recipe_create_button),
                         startSpace = 16.dp,
                         endSpace = 16.dp,
                         topSpace = 8.dp,
                         bottomSpace = 16.dp
-                    ) {}
+                    ) {
+                        feature.accept(AddRecipeFeature.Msg.OnSaveRecipeClicked)
+                    }
                 }
             }
         )
@@ -81,7 +110,8 @@ fun AddRecipeScreen(
 @Composable
 fun RecipeTitleField(
     bringIntoViewRequester: BringIntoViewRequester,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
+    onInputChange: (String) -> Unit
 ) {
     Subtitle(
         text = LocalContext.current.getString(R.string.add_recipe_name),
@@ -93,7 +123,11 @@ fun RecipeTitleField(
 
     val titleInput = remember { mutableStateOf(TextFieldValue()) }
     SingleLineInput(
-        input = titleInput,
+        inputValue = titleInput.value,
+        onValueChange = { value ->
+            onInputChange(value.text)
+            titleInput.value = value
+        },
         hint = LocalContext.current.getString(R.string.add_recipe_name_hint),
         modifier = Modifier
             .fillMaxWidth()
@@ -116,7 +150,8 @@ fun RecipeTitleField(
 @Composable
 fun RecipeDescriptionField(
     bringIntoViewRequester: BringIntoViewRequester,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
+    onInputChange: (String) -> Unit
 ) {
     Subtitle(
         text = LocalContext.current.getString(R.string.add_recipe_description),
@@ -128,7 +163,11 @@ fun RecipeDescriptionField(
 
     val descriptionInput = remember { mutableStateOf(TextFieldValue()) }
     MultiLineInput(
-        input = descriptionInput,
+        inputValue = descriptionInput.value,
+        onValueChange = { value ->
+            onInputChange(value.text)
+            descriptionInput.value = value
+        },
         hint = LocalContext.current.getString(R.string.add_recipe_description_hint),
         modifier = Modifier
             .fillMaxWidth()

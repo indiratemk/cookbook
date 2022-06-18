@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Recipe(
     @PrimaryKey
-    val id: Int,
+    val id: String,
     val title: String,
     val description: String,
     val imageUrl: String
