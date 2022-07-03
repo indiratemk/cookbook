@@ -12,6 +12,6 @@ interface RecipeDao {
     @Insert
     suspend fun addRecipe(recipe: Recipe)
 
-    @Query("SELECT * FROM recipe")
+    @Query("SELECT * FROM recipe ORDER BY creationDate DESC")
     fun getRecipes(): Flow<List<Recipe>>
 }

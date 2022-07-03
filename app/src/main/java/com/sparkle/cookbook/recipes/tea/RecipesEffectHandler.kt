@@ -6,7 +6,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class RecipesEffectHandler(
@@ -23,8 +22,7 @@ class RecipesEffectHandler(
         when (eff) {
             is RecipesFeature.Eff.LoadRecipes -> scope.launch {
                 recipeDao.getRecipes().collect { recipes ->
-                    val msg = RecipesFeature.Msg.OnRecipesLoaded(recipes = recipes)
-                    listener?.invoke(msg)
+                    listener?.invoke(RecipesFeature.Msg.OnRecipesLoaded(recipes = recipes))
                 }
             }
         }

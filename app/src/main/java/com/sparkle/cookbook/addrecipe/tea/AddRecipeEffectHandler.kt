@@ -8,7 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import java.util.*
+import kotlinx.coroutines.withContext
+import java.util.Calendar
+import java.util.UUID
 
 class AddRecipeEffectHandler(
     private val recipeDao: RecipeDao
@@ -23,14 +25,18 @@ class AddRecipeEffectHandler(
     override fun handleEffect(eff: AddRecipeFeature.Eff) {
         when (eff) {
             is AddRecipeFeature.Eff.SaveRecipe -> scope.launch {
-                recipeDao.addRecipe(
-                    Recipe(
-                        id = UUID.randomUUID().toString(),
-                        title = eff.title,
-                        description = eff.description,
-                        imageUrl = "https://image.sciencenorway.no/1438480.jpg?imageId=1438480&panow=0&panoh=0&panox=0&panoy=0&heightw=0&heighth=0&heightx=0&heighty=0&width=1200&height=900"
+                withContext(Dispatchers.IO) {
+                    recipeDao.addRecipe(
+                        Recipe(
+                            id = UUID.randomUUID().toString(),
+                            title = eff.title,
+                            description = eff.description,
+                            imageUrl = "https://image.sciencenorway.no/1438480.jpg?imageId=1438480&panow=0&panoh=0&panox=0&panoy=0&heightw=0&heighth=0&heightx=0&heighty=0&width=1200&height=900",
+                            creationDate = Calendar.getInstance().time
+                        )
                     )
-                )
+                }
+                listener?.invoke(AddRecipeFeature.Msg.OnRecipeSaved)
             }
         }
     }
